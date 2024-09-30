@@ -12,30 +12,29 @@ class HomePage extends StatelessWidget {
 
   final List<Map<String, String>> projects = [
     {
-      'title': 'Street Workout App',
-      'description': 'A Flutter app with training plans and animations.',
+      'title': 'Gorilla Workout App',
+      'description':
+          'Developed a Street Workout app using Flutter, featuring multi-language support, training databases, and animations. Over 1,000 downloads on Google Play Store.',
       'image': 'images/koznotech.png', // Resim dosyası yolu
     },
     {
-      'title': 'Humanoid AI',
-      'description': 'Development of a humanoid AI with Google Vertex AI.',
+      'title': 'Adam the Humanoid',
+      'description':
+          'Developed a humanoid AI using Python and Google Vertex AI, integrating servo motors and Arduino for movement. Fine-tuned AI models for improved speech, object, and face recognition.',
       'image': 'images/koznotech.png',
     },
     {
-      'title': 'Flutter Web App',
-      'description': 'A Flutter app with a web interface.',
+      'title': 'Johnny the Humanoid',
+      'description':
+          'Developed a humanoid AI using Python and Google Vertex AI, integrating servo motors and Arduino for movement. Fine-tuned AI models for improved speech, object, and face recognition.',
       'image': 'images/koznotech.png',
     },
     {
-      'title': 'Flutter Web App',
-      'description': 'A Flutter app with a web interface.',
+      'title': 'Pencil 2D Platformer',
+      'description':
+          'Developing a 2D platformer game using Godot, targeting multiple platforms.',
       'image': 'images/koznotech.png',
-    },
-    {
-      'title': 'Flutter Web App',
-      'description': 'A Flutter app with a web interface.',
-      'image': 'images/koznotech.png',
-    },
+    }
   ];
 
   void scrollToSection(GlobalKey key) {
@@ -100,7 +99,7 @@ class HomePage extends StatelessWidget {
                     children: [
                       Text(
                         "HEY, I'M ÖMER FARUK KUŞ",
-                        style: TextStyle(fontSize: 24),
+                        style: TextStyle(fontSize: 48),
                       ),
                       TextButton(
                         onPressed: () {
