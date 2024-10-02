@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:omerfarukkus_flutter_website/pages/home_page.dart';
 import 'util.dart';
 import 'theme.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void main() {
   runApp(const MyApp());
@@ -19,6 +20,9 @@ class MyApp extends StatelessWidget {
       theme: theme.dark(),
       home: HomePage(),
       debugShowCheckedModeBanner: false,
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
+      // locale: const Locale('tr'),
     );
   }
 }

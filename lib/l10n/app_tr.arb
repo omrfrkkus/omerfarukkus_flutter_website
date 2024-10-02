@@ -1,0 +1,11 @@
+{
+  "about": "Hakkımda",
+  "projects": "Projelerim",
+  "sports": "Spor",
+  "contact": "İletişim",
+  "hey": "MERHABA, BEN",
+  "resume": "Özgeçmiş",
+  "click_more": "Daha fazla için tıkla",
+  "close": "Kapat",
+  "all_rights": "Tüm hakları saklıdır. Flutter ile geliştirilmiştir."
+}

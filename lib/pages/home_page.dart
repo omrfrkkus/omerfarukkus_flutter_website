@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({super.key});
@@ -12,21 +13,26 @@ class HomePage extends StatelessWidget {
 
   final List<Map<String, String>> projects = [
     {
-      'title': 'Street Workout App',
+      'title': 'Gorilla Workout Mobile App',
       'description': 'A Flutter app with training plans and animations.',
-      'image': 'images/koznotech.png',
+      'image': 'images/gorilla.png',
     },
     {
       'title': 'Adam the Humanoid',
       'description':
           'Developed a humanoid AI using Python and Google Vertex AI, integrating servo motors and Arduino for movement. Fine-tuned AI models for improved speech, object, and face recognition.',
-      'image': 'images/koznotech.png',
+      'image': 'images/adam.jpeg',
     },
     {
       'title': 'Johnny the Humanoid',
       'description':
           'Developed a humanoid AI using Python and Google Vertex AI, integrating servo motors and Arduino for movement. Fine-tuned AI models for improved speech, object, and face recognition.',
-      'image': 'images/koznotech.png',
+      'image': 'images/johnny.jpg',
+    },
+    {
+      'title': 'Pencil 2D Platformer Game',
+      'description': 'A 2D multiplatform platformer game using Godot.',
+      'image': 'images/pencil.png',
     },
   ];
 
@@ -44,23 +50,28 @@ class HomePage extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: isDesktop ? const Text('Ömer Faruk Kuş') : null,
+          title: isDesktop
+              ? InkWell(
+                  borderRadius: BorderRadius.circular(10),
+                  onTap: () => scrollToSection(aboutKey),
+                  child: const Text('Ömer Faruk Kuş'))
+              : null,
           actions: [
             TextButton(
               onPressed: () => scrollToSection(aboutKey),
-              child: const Text('About'),
+              child: Text(AppLocalizations.of(context)!.about),
             ),
             TextButton(
               onPressed: () => scrollToSection(projectsKey),
-              child: const Text('Projects'),
+              child: Text(AppLocalizations.of(context)!.projects),
             ),
             TextButton(
               onPressed: () => scrollToSection(sportsKey),
-              child: const Text('Sports'),
+              child: Text(AppLocalizations.of(context)!.sports),
             ),
             TextButton(
               onPressed: () => scrollToSection(contactKey),
-              child: const Text('Contact'),
+              child: Text(AppLocalizations.of(context)!.contact),
             ),
           ],
         ),
@@ -76,8 +87,9 @@ class HomePage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
-                        "HEY, I'M ÖMER FARUK KUŞ",
+                        "${AppLocalizations.of(context)!.hey} ÖMER FARUK KUŞ",
                         style: Theme.of(context).textTheme.displaySmall,
+                        textAlign: TextAlign.center,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -86,11 +98,15 @@ class HomePage extends StatelessWidget {
                             onPressed: () {
                               scrollToSection(projectsKey);
                             },
-                            child: const Text('PROJECTS'),
+                            child: Text(AppLocalizations.of(context)!
+                                .projects
+                                .toUpperCase()),
                           ),
                           TextButton.icon(
                             onPressed: () {},
-                            label: const Text('RESUME'),
+                            label: Text(AppLocalizations.of(context)!
+                                .resume
+                                .toUpperCase()),
                             icon: const Icon(Icons.file_download_outlined),
                           )
                         ],
@@ -105,9 +121,23 @@ class HomePage extends StatelessWidget {
               child: Column(
                 children: [
                   Text(
-                    'PROJECTS',
+                    AppLocalizations.of(context)!.projects.toUpperCase(),
                     style: Theme.of(context).textTheme.titleLarge,
                   ),
+                  const SizedBox(height: 16),
+                  isDesktop
+                      ? Divider(
+                          color: Theme.of(context).colorScheme.primary,
+                          thickness: 1,
+                          indent: 64,
+                          endIndent: 64,
+                        )
+                      : Divider(
+                          color: Theme.of(context).colorScheme.primary,
+                          thickness: 1,
+                          indent: 32,
+                          endIndent: 32,
+                        ),
                   GridView.builder(
                     physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
@@ -132,13 +162,15 @@ class HomePage extends StatelessWidget {
                                   mainAxisSize: MainAxisSize.min,
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: <Widget>[
-                                    const Text('This is a fullscreen dialog.'),
+                                    Text(project['description']!,
+                                        textAlign: TextAlign.center),
                                     const SizedBox(height: 15),
                                     TextButton(
                                       onPressed: () {
                                         Navigator.pop(context);
                                       },
-                                      child: const Text('Close'),
+                                      child: Text(
+                                          AppLocalizations.of(context)!.close),
                                     ),
                                   ],
                                 ),
@@ -150,8 +182,8 @@ class HomePage extends StatelessWidget {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
+                                  const SizedBox(height: 16),
                                   Expanded(
-                                    flex: 3,
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(10),
                                       child: Image.asset(
@@ -169,14 +201,29 @@ class HomePage extends StatelessWidget {
                                     ),
                                     textAlign: TextAlign.center,
                                   ),
-                                  const SizedBox(height: 8),
-                                  Flexible(
-                                    child: Text(
-                                      project['description']!,
-                                      textAlign: TextAlign.center,
-                                      maxLines: 2,
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        project['description']!,
+                                        textAlign: TextAlign.center,
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                      const SizedBox(height: 8),
+                                      Text(
+                                        AppLocalizations.of(context)!
+                                            .click_more,
+                                        style: TextStyle(
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .primary,
+                                          decoration: TextDecoration.underline,
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ],
                               ),
@@ -185,7 +232,7 @@ class HomePage extends StatelessWidget {
                         ),
                       );
                     },
-                  ),
+                  )
                 ],
               ),
             ),
@@ -195,9 +242,23 @@ class HomePage extends StatelessWidget {
                   height: 600,
                   child: Column(children: [
                     Text(
-                      'SPORTS',
+                      AppLocalizations.of(context)!.sports.toUpperCase(),
                       style: Theme.of(context).textTheme.titleLarge,
                     ),
+                    const SizedBox(height: 16),
+                    isDesktop
+                        ? Divider(
+                            color: Theme.of(context).colorScheme.primary,
+                            thickness: 1,
+                            indent: 64,
+                            endIndent: 64,
+                          )
+                        : Divider(
+                            color: Theme.of(context).colorScheme.primary,
+                            thickness: 1,
+                            indent: 32,
+                            endIndent: 32,
+                          ),
                   ])),
             ),
             SliverToBoxAdapter(
@@ -207,82 +268,92 @@ class HomePage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
-                      'CONTACT',
+                      AppLocalizations.of(context)!.contact.toUpperCase(),
                       style: Theme.of(context).textTheme.titleLarge,
                     ),
-                    Card(
-                      clipBehavior: Clip.antiAliasWithSaveLayer,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          ElevatedButton.icon(
-                            onPressed: () {
-                              _launchURL('mailto:omerfaruk.kus@outlook.com');
-                            },
-                            icon: const Icon(Icons.email),
-                            label: const Text('Email'),
-                            style: ElevatedButton.styleFrom(
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 16.0, horizontal: 24.0),
-                              backgroundColor: Colors.blueAccent,
-                              textStyle: const TextStyle(fontSize: 18),
-                            ),
+                    const SizedBox(height: 16),
+                    isDesktop
+                        ? Divider(
+                            color: Theme.of(context).colorScheme.primary,
+                            thickness: 1,
+                            indent: 64,
+                            endIndent: 64,
+                          )
+                        : Divider(
+                            color: Theme.of(context).colorScheme.primary,
+                            thickness: 1,
+                            indent: 32,
+                            endIndent: 32,
                           ),
-                          ElevatedButton.icon(
-                            onPressed: () {
-                              _launchURL(
-                                  'https://www.linkedin.com/in/omrfrkkus');
-                            },
-                            icon: const FaIcon(FontAwesomeIcons.linkedin),
-                            label: const Text('LinkedIn'),
-                            style: ElevatedButton.styleFrom(
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 16.0, horizontal: 24.0),
-                              backgroundColor: Colors.blue[700],
-                              textStyle: const TextStyle(fontSize: 18),
-                            ),
+                    ListView(
+                      shrinkWrap: true,
+                      padding: const EdgeInsets.all(32.0),
+                      physics: const NeverScrollableScrollPhysics(),
+                      children: [
+                        ElevatedButton.icon(
+                          onPressed: () {
+                            _launchURL('mailto:omerfaruk.kus@outlook.com');
+                          },
+                          icon: const Icon(Icons.email),
+                          label: const Text('Email'),
+                          style: ElevatedButton.styleFrom(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 16.0, horizontal: 24.0),
+                            backgroundColor: Colors.blueAccent,
+                            textStyle: const TextStyle(fontSize: 18),
                           ),
-                          ElevatedButton.icon(
-                            onPressed: () {
-                              _launchURL('https://www.instagram.com/omrfrkkus');
-                            },
-                            icon: const FaIcon(FontAwesomeIcons.instagram),
-                            label: const Text('Instagram'),
-                            style: ElevatedButton.styleFrom(
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 16.0, horizontal: 24.0),
-                              backgroundColor: Colors.pinkAccent,
-                              textStyle: const TextStyle(fontSize: 18),
-                            ),
+                        ),
+                        ElevatedButton.icon(
+                          onPressed: () {
+                            _launchURL('https://www.linkedin.com/in/omrfrkkus');
+                          },
+                          icon: const FaIcon(FontAwesomeIcons.linkedin),
+                          label: const Text('LinkedIn'),
+                          style: ElevatedButton.styleFrom(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 16.0, horizontal: 24.0),
+                            backgroundColor: Colors.blue[700],
+                            textStyle: const TextStyle(fontSize: 18),
                           ),
-                          ElevatedButton.icon(
-                            onPressed: () {
-                              _launchURL('https://github.com/omrfrkkus');
-                            },
-                            icon: const FaIcon(FontAwesomeIcons.github),
-                            label: const Text('GitHub'),
-                            style: ElevatedButton.styleFrom(
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 16.0, horizontal: 24.0),
-                              backgroundColor: Colors.black,
-                              textStyle: const TextStyle(fontSize: 18),
-                            ),
+                        ),
+                        ElevatedButton.icon(
+                          onPressed: () {
+                            _launchURL('https://www.instagram.com/omrfrkkus');
+                          },
+                          icon: const FaIcon(FontAwesomeIcons.instagram),
+                          label: const Text('Instagram'),
+                          style: ElevatedButton.styleFrom(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 16.0, horizontal: 24.0),
+                            backgroundColor: Colors.pinkAccent,
+                            textStyle: const TextStyle(fontSize: 18),
                           ),
-                        ],
-                      ),
-                    )
+                        ),
+                        ElevatedButton.icon(
+                          onPressed: () {
+                            _launchURL('https://github.com/omrfrkkus');
+                          },
+                          icon: const FaIcon(FontAwesomeIcons.github),
+                          label: const Text('GitHub'),
+                          style: ElevatedButton.styleFrom(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 16.0, horizontal: 24.0),
+                            backgroundColor: Colors.black,
+                            textStyle: const TextStyle(fontSize: 18),
+                          ),
+                        )
+                      ],
+                    ),
                   ],
                 ),
               ),
             ),
             SliverToBoxAdapter(
-              child: Container(
+              child: SizedBox(
                 height: 80,
-                color: Colors.black,
-                child: const Center(
+                child: Center(
                   child: Text(
-                    ' 2024 Ömer Faruk Kuş. All rights reserved. Developed with Flutter.',
+                    ' 2024 Ömer Faruk Kuş. ${AppLocalizations.of(context)!.all_rights}',
                   ),
                 ),
               ),
@@ -301,4 +372,15 @@ void _launchURL(String url) async {
   } else {
     throw 'Could not launch $url';
   }
+}
+
+void fullScreenDialog(BuildContext context, Widget widget) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return Dialog.fullscreen(
+        child: widget,
+      );
+    },
+  );
 }

@@ -1,0 +1,11 @@
+{
+  "about": "O mnie",
+  "projects": "Projekty",
+  "sports": "Sport",
+  "contact": "Kontakt",
+  "hey": "CZEŚĆ, JESTEM",
+  "resume": "CV",
+  "click_more": "Kliknij, aby dowiedzieć się więcej",
+  "close": "Zamknij",
+  "all_rights": "Wszelkie prawa zastrzeżone. Stworzone za pomocą Flutter."
+}
