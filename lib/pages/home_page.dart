@@ -47,15 +47,11 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDesktop = MediaQuery.sizeOf(context).width >= 600;
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: TextButton(
-            child: Text('Ömer Faruk Kuş'),
-            onPressed: () {
-              scrollToSection(aboutKey);
-            },
-          ),
+          title: isDesktop ? const Text('Ömer Faruk Kuş') : null,
           actions: [
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -101,11 +97,21 @@ class HomePage extends StatelessWidget {
                         "HEY, I'M ÖMER FARUK KUŞ",
                         style: TextStyle(fontSize: 48),
                       ),
-                      TextButton(
-                        onPressed: () {
-                          scrollToSection(projectsKey);
-                        },
-                        child: Text('PROJECTS'),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          TextButton(
+                            onPressed: () {
+                              scrollToSection(projectsKey);
+                            },
+                            child: Text('PROJECTS'),
+                          ),
+                          TextButton.icon(
+                            onPressed: () {},
+                            label: Text('RESUME'),
+                            icon: Icon(Icons.download),
+                          )
+                        ],
                       ),
                     ],
                   ),
@@ -203,12 +209,11 @@ class HomePage extends StatelessWidget {
                 ),
               ),
               Container(
-                height: 200,
+                height: 80,
                 color: Colors.black,
                 child: const Center(
                   child: Text(
-                    'About Section',
-                    style: TextStyle(fontSize: 24, color: Colors.white),
+                    '© 2024 Ömer Faruk Kuş. All rights reserved. Developed with Flutter.',
                   ),
                 ),
               ),
