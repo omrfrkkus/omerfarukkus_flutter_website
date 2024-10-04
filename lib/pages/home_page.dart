@@ -1,15 +1,23 @@
+import 'package:country_flags/country_flags.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:country_icons/country_icons.dart';
 
-class HomePage extends StatelessWidget {
-  HomePage({super.key});
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
 
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   final GlobalKey aboutKey = GlobalKey();
+
   final GlobalKey projectsKey = GlobalKey();
+
   final GlobalKey sportsKey = GlobalKey();
+
   final GlobalKey contactKey = GlobalKey();
 
   final List<Map<String, String>> projects = [
@@ -47,6 +55,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Locale currentLocale = Localizations.localeOf(context);
     final isDesktop = MediaQuery.sizeOf(context).width >= 600;
     return SafeArea(
       child: Scaffold(
@@ -59,38 +68,59 @@ class HomePage extends StatelessWidget {
               : null,
           actions: [
             DropdownButton(
+              value: currentLocale.languageCode,
+              onChanged: (value) {
+                setState(() {
+                  currentLocale = Locale(value!);
+                });
+              },
               items: [
-                const DropdownMenuItem(
+                DropdownMenuItem(
                   value: 'en',
-                  child: Text('English'),
+                  child: Row(
+                    children: [
+                      CountryFlag.fromCountryCode(
+                        'GB',
+                        width: 24,
+                        height: 16,
+                        shape: const RoundedRectangle(3),
+                      ),
+                      const SizedBox(width: 6),
+                      const Text('English'),
+                    ],
+                  ),
                 ),
-                const DropdownMenuItem(
+                DropdownMenuItem(
                   value: 'tr',
-                  child: Text('Türkçe'),
+                  child: Row(
+                    children: [
+                      CountryFlag.fromCountryCode(
+                        'TR',
+                        width: 24,
+                        height: 16,
+                        shape: const RoundedRectangle(3),
+                      ),
+                      const SizedBox(width: 6),
+                      const Text('Türkçe'),
+                    ],
+                  ),
                 ),
                 DropdownMenuItem(
                   value: 'pl',
                   child: Row(
                     children: [
-                      CountryIcons.getSvgFlag(
-                          'de'), // Polonya bayrağını ekleyin
-                      const SizedBox(
-                          width: 8), // İkon ile metin arasında boşluk
+                      CountryFlag.fromCountryCode(
+                        'PL',
+                        width: 24,
+                        height: 16,
+                        shape: const RoundedRectangle(3),
+                      ),
+                      const SizedBox(width: 6),
                       const Text('Polski'), // Lehçe metni
                     ],
                   ),
                 ),
               ],
-              onChanged: (value) {
-                if (value == 'en') {
-                  // AppLocalizations.of(context)!.setLocale(const Locale('en'));
-                } else if (value == 'tr') {
-                  // AppLocalizations.of(context)!.setLocale(const Locale('tr'));
-                }
-                if (value == 'pl') {
-                  // AppLocalizations.of(context)!.setLocale(const Locale('pl'));
-                }
-              },
             ),
             TextButton(
               onPressed: () => scrollToSection(aboutKey),
