@@ -1,8 +1,10 @@
 import 'package:country_flags/country_flags.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:omerfarukkus_flutter_website/services/locale_service.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -13,11 +15,8 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final GlobalKey aboutKey = GlobalKey();
-
   final GlobalKey projectsKey = GlobalKey();
-
   final GlobalKey sportsKey = GlobalKey();
-
   final GlobalKey contactKey = GlobalKey();
 
   final List<Map<String, String>> projects = [
@@ -55,91 +54,90 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    Locale currentLocale = Localizations.localeOf(context);
+    final localeService = Provider.of<LocaleService>(context);
     final isDesktop = MediaQuery.sizeOf(context).width >= 600;
+
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          title: isDesktop
-              ? InkWell(
-                  borderRadius: BorderRadius.circular(10),
-                  onTap: () => scrollToSection(aboutKey),
-                  child: const Text('Ömer Faruk Kuş'))
-              : null,
-          actions: [
-            DropdownButton(
-              value: currentLocale.languageCode,
-              onChanged: (value) {
-                setState(() {
-                  currentLocale = Locale(value!);
-                });
-              },
-              items: [
-                DropdownMenuItem(
-                  value: 'en',
-                  child: Row(
-                    children: [
-                      CountryFlag.fromCountryCode(
-                        'GB',
-                        width: 24,
-                        height: 16,
-                        shape: const RoundedRectangle(3),
+        appBar: isDesktop
+            ? AppBar(
+                title: InkWell(
+                    borderRadius: BorderRadius.circular(10),
+                    onTap: () => scrollToSection(aboutKey),
+                    child: const Text('Ömer Faruk Kuş')),
+                actions: [
+                  DropdownButton(
+                    value: localeService.currentLocale.languageCode,
+                    onChanged: (value) {
+                      localeService.changeLocale(value!);
+                    },
+                    items: [
+                      DropdownMenuItem(
+                        value: 'en',
+                        child: Row(
+                          children: [
+                            CountryFlag.fromCountryCode(
+                              'GB',
+                              width: 24,
+                              height: 16,
+                              shape: const RoundedRectangle(3),
+                            ),
+                            const SizedBox(width: 6),
+                            const Text('English'),
+                          ],
+                        ),
                       ),
-                      const SizedBox(width: 6),
-                      const Text('English'),
+                      DropdownMenuItem(
+                        value: 'tr',
+                        child: Row(
+                          children: [
+                            CountryFlag.fromCountryCode(
+                              'TR',
+                              width: 24,
+                              height: 16,
+                              shape: const RoundedRectangle(3),
+                            ),
+                            const SizedBox(width: 6),
+                            const Text('Türkçe'),
+                          ],
+                        ),
+                      ),
+                      DropdownMenuItem(
+                        value: 'pl',
+                        child: Row(
+                          children: [
+                            CountryFlag.fromCountryCode(
+                              'PL',
+                              width: 24,
+                              height: 16,
+                              shape: const RoundedRectangle(3),
+                            ),
+                            const SizedBox(width: 6),
+                            const Text('Polski'),
+                          ],
+                        ),
+                      ),
                     ],
                   ),
-                ),
-                DropdownMenuItem(
-                  value: 'tr',
-                  child: Row(
-                    children: [
-                      CountryFlag.fromCountryCode(
-                        'TR',
-                        width: 24,
-                        height: 16,
-                        shape: const RoundedRectangle(3),
-                      ),
-                      const SizedBox(width: 6),
-                      const Text('Türkçe'),
-                    ],
+                  TextButton(
+                    onPressed: () => scrollToSection(aboutKey),
+                    child: Text(AppLocalizations.of(context)!.about),
                   ),
-                ),
-                DropdownMenuItem(
-                  value: 'pl',
-                  child: Row(
-                    children: [
-                      CountryFlag.fromCountryCode(
-                        'PL',
-                        width: 24,
-                        height: 16,
-                        shape: const RoundedRectangle(3),
-                      ),
-                      const SizedBox(width: 6),
-                      const Text('Polski'), // Lehçe metni
-                    ],
+                  TextButton(
+                    onPressed: () => scrollToSection(projectsKey),
+                    child: Text(AppLocalizations.of(context)!.projects),
                   ),
-                ),
-              ],
-            ),
-            TextButton(
-              onPressed: () => scrollToSection(aboutKey),
-              child: Text(AppLocalizations.of(context)!.about),
-            ),
-            TextButton(
-              onPressed: () => scrollToSection(projectsKey),
-              child: Text(AppLocalizations.of(context)!.projects),
-            ),
-            TextButton(
-              onPressed: () => scrollToSection(sportsKey),
-              child: Text(AppLocalizations.of(context)!.sports),
-            ),
-            TextButton(
-              onPressed: () => scrollToSection(contactKey),
-              child: Text(AppLocalizations.of(context)!.contact),
-            ),
-          ],
-        ),
+                  TextButton(
+                    onPressed: () => scrollToSection(sportsKey),
+                    child: Text(AppLocalizations.of(context)!.sports),
+                  ),
+                  TextButton(
+                    onPressed: () => scrollToSection(contactKey),
+                    child: Text(AppLocalizations.of(context)!.contact),
+                  ),
+                ],
+              )
+            : null,
         body: CustomScrollView(
           slivers: [
             SliverToBoxAdapter(
@@ -324,6 +322,7 @@ class _HomePageState extends State<HomePage> {
                             indent: 32,
                             endIndent: 32,
                           ),
+                    Text(localeService.currentLocale.languageCode),
                   ])),
             ),
             SliverToBoxAdapter(
@@ -350,65 +349,137 @@ class _HomePageState extends State<HomePage> {
                             indent: 32,
                             endIndent: 32,
                           ),
-                    ListView(
-                      shrinkWrap: true,
-                      padding: const EdgeInsets.all(32.0),
-                      physics: const NeverScrollableScrollPhysics(),
-                      children: [
-                        ElevatedButton.icon(
-                          onPressed: () {
-                            _launchURL('mailto:omerfaruk.kus@outlook.com');
-                          },
-                          icon: const Icon(Icons.email),
-                          label: const Text('Email'),
-                          style: ElevatedButton.styleFrom(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 16.0, horizontal: 24.0),
-                            backgroundColor: Colors.blueAccent,
-                            textStyle: const TextStyle(fontSize: 18),
-                          ),
-                        ),
-                        ElevatedButton.icon(
-                          onPressed: () {
-                            _launchURL('https://www.linkedin.com/in/omrfrkkus');
-                          },
-                          icon: const FaIcon(FontAwesomeIcons.linkedin),
-                          label: const Text('LinkedIn'),
-                          style: ElevatedButton.styleFrom(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 16.0, horizontal: 24.0),
-                            backgroundColor: Colors.blue[700],
-                            textStyle: const TextStyle(fontSize: 18),
-                          ),
-                        ),
-                        ElevatedButton.icon(
-                          onPressed: () {
-                            _launchURL('https://www.instagram.com/omrfrkkus');
-                          },
-                          icon: const FaIcon(FontAwesomeIcons.instagram),
-                          label: const Text('Instagram'),
-                          style: ElevatedButton.styleFrom(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 16.0, horizontal: 24.0),
-                            backgroundColor: Colors.pinkAccent,
-                            textStyle: const TextStyle(fontSize: 18),
-                          ),
-                        ),
-                        ElevatedButton.icon(
-                          onPressed: () {
-                            _launchURL('https://github.com/omrfrkkus');
-                          },
-                          icon: const FaIcon(FontAwesomeIcons.github),
-                          label: const Text('GitHub'),
-                          style: ElevatedButton.styleFrom(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 16.0, horizontal: 24.0),
-                            backgroundColor: Colors.black,
-                            textStyle: const TextStyle(fontSize: 18),
-                          ),
-                        )
-                      ],
-                    ),
+                    isDesktop
+                        ? ListView(
+                            shrinkWrap: true,
+                            padding: const EdgeInsets.all(32.0),
+                            physics: const NeverScrollableScrollPhysics(),
+                            children: [
+                              ElevatedButton.icon(
+                                onPressed: () {
+                                  _launchURL(
+                                      'mailto:omerfaruk.kus@outlook.com');
+                                },
+                                icon: const Icon(Icons.email),
+                                label: const Text('Email'),
+                                style: ElevatedButton.styleFrom(
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 16.0, horizontal: 24.0),
+                                  backgroundColor: Colors.blueAccent,
+                                  textStyle: const TextStyle(fontSize: 18),
+                                ),
+                              ),
+                              const SizedBox(height: 16),
+                              ElevatedButton.icon(
+                                onPressed: () {
+                                  _launchURL(
+                                      'https://www.linkedin.com/in/omrfrkkus');
+                                },
+                                icon: const FaIcon(FontAwesomeIcons.linkedin),
+                                label: const Text('LinkedIn'),
+                                style: ElevatedButton.styleFrom(
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 16.0, horizontal: 24.0),
+                                  backgroundColor: Colors.blue[700],
+                                  textStyle: const TextStyle(fontSize: 18),
+                                ),
+                              ),
+                              const SizedBox(height: 16),
+                              ElevatedButton.icon(
+                                onPressed: () {
+                                  _launchURL(
+                                      'https://www.instagram.com/omrfrkkus');
+                                },
+                                icon: const FaIcon(FontAwesomeIcons.instagram),
+                                label: const Text('Instagram'),
+                                style: ElevatedButton.styleFrom(
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 16.0, horizontal: 24.0),
+                                  backgroundColor: Colors.pinkAccent,
+                                  textStyle: const TextStyle(fontSize: 18),
+                                ),
+                              ),
+                              const SizedBox(height: 16),
+                              ElevatedButton.icon(
+                                onPressed: () {
+                                  _launchURL('https://github.com/omrfrkkus');
+                                },
+                                icon: const FaIcon(FontAwesomeIcons.github),
+                                label: const Text('GitHub'),
+                                style: ElevatedButton.styleFrom(
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 16.0, horizontal: 24.0),
+                                  backgroundColor: Colors.black,
+                                  textStyle: const TextStyle(fontSize: 18),
+                                ),
+                              )
+                            ],
+                          )
+                        : ListView(
+                            shrinkWrap: true,
+                            padding: const EdgeInsets.all(32.0),
+                            physics: const NeverScrollableScrollPhysics(),
+                            children: [
+                              ElevatedButton.icon(
+                                onPressed: () {
+                                  _launchURL(
+                                      'mailto:omerfaruk.kus@outlook.com');
+                                },
+                                icon: const Icon(Icons.email),
+                                label: const Text('Email'),
+                                style: ElevatedButton.styleFrom(
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 16.0, horizontal: 24.0),
+                                  backgroundColor: Colors.blueAccent,
+                                  textStyle: const TextStyle(fontSize: 18),
+                                ),
+                              ),
+                              const SizedBox(height: 16),
+                              ElevatedButton.icon(
+                                onPressed: () {
+                                  _launchURL(
+                                      'https://www.linkedin.com/in/omrfrkkus');
+                                },
+                                icon: const FaIcon(FontAwesomeIcons.linkedin),
+                                label: const Text('LinkedIn'),
+                                style: ElevatedButton.styleFrom(
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 16.0, horizontal: 24.0),
+                                  backgroundColor: Colors.blue[700],
+                                  textStyle: const TextStyle(fontSize: 18),
+                                ),
+                              ),
+                              const SizedBox(height: 16),
+                              ElevatedButton.icon(
+                                onPressed: () {
+                                  _launchURL(
+                                      'https://www.instagram.com/omrfrkkus');
+                                },
+                                icon: const FaIcon(FontAwesomeIcons.instagram),
+                                label: const Text('Instagram'),
+                                style: ElevatedButton.styleFrom(
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 16.0, horizontal: 24.0),
+                                  backgroundColor: Colors.pinkAccent,
+                                  textStyle: const TextStyle(fontSize: 18),
+                                ),
+                              ),
+                              const SizedBox(height: 16),
+                              ElevatedButton.icon(
+                                onPressed: () {
+                                  _launchURL('https://github.com/omrfrkkus');
+                                },
+                                icon: const FaIcon(FontAwesomeIcons.github),
+                                label: const Text('GitHub'),
+                                style: ElevatedButton.styleFrom(
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 16.0, horizontal: 24.0),
+                                  backgroundColor: Colors.black,
+                                  textStyle: const TextStyle(fontSize: 18),
+                                ),
+                              )
+                            ],
+                          )
                   ],
                 ),
               ),
@@ -419,6 +490,7 @@ class _HomePageState extends State<HomePage> {
                 child: Center(
                   child: Text(
                     ' 2024 Ömer Faruk Kuş. ${AppLocalizations.of(context)!.all_rights}',
+                    textAlign: TextAlign.center,
                   ),
                 ),
               ),
@@ -437,15 +509,4 @@ void _launchURL(String url) async {
   } else {
     throw 'Could not launch $url';
   }
-}
-
-void fullScreenDialog(BuildContext context, Widget widget) {
-  showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return Dialog.fullscreen(
-        child: widget,
-      );
-    },
-  );
 }
