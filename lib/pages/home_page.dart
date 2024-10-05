@@ -1,6 +1,7 @@
 import 'package:country_flags/country_flags.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:omerfarukkus_flutter_website/project_pages/gorilla.dart';
 import 'package:omerfarukkus_flutter_website/services/locale_service.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -22,13 +23,14 @@ class _HomePageState extends State<HomePage> {
   final List<Map<String, String>> projects = [
     {
       'title': 'Gorilla Workout Mobile App',
-      'description': 'A Flutter app with training plans and animations.',
+      'description':
+          'Using Flutter, I developed and published a Street Workout app with multi-language support, professional training databases, and animations. The app has over thousand downloads on Google Play Store.',
       'image': 'images/gorilla.png',
     },
     {
       'title': 'Adam the Humanoid',
       'description':
-          'Developed a humanoid AI using Python and Google Vertex AI, integrating servo motors and Arduino for movement. Fine-tuned AI models for improved speech, object, and face recognition.',
+          'I developed a humanoid AI using Python and Google Vertex AI. The robot integrates hardware components such as servo motors and Arduino for movement control. Additionally, I performed fine-tuning on various AI models, including both cloud-based and offline models, to enhance its speech, object, and face recognition capabilities.',
       'image': 'images/adam.jpeg',
     },
     {
@@ -225,6 +227,8 @@ class _HomePageState extends State<HomePage> {
                                   mainAxisSize: MainAxisSize.min,
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: <Widget>[
+                                    const GorillaWorkout(height: 600),
+                                    const SizedBox(height: 16),
                                     Text(project['description']!,
                                         textAlign: TextAlign.center),
                                     const SizedBox(height: 15),
@@ -232,8 +236,13 @@ class _HomePageState extends State<HomePage> {
                                       onPressed: () {
                                         Navigator.pop(context);
                                       },
-                                      child: Text(
-                                          AppLocalizations.of(context)!.close),
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 48),
+                                        child: Text(
+                                            AppLocalizations.of(context)!
+                                                .close),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -350,70 +359,69 @@ class _HomePageState extends State<HomePage> {
                             endIndent: 32,
                           ),
                     isDesktop
-                        ? ListView(
-                            shrinkWrap: true,
-                            padding: const EdgeInsets.all(32.0),
-                            physics: const NeverScrollableScrollPhysics(),
-                            children: [
-                              ElevatedButton.icon(
-                                onPressed: () {
-                                  _launchURL(
-                                      'mailto:omerfaruk.kus@outlook.com');
-                                },
-                                icon: const Icon(Icons.email),
-                                label: const Text('Email'),
-                                style: ElevatedButton.styleFrom(
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 16.0, horizontal: 24.0),
-                                  backgroundColor: Colors.blueAccent,
-                                  textStyle: const TextStyle(fontSize: 18),
+                        ? Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                ElevatedButton.icon(
+                                  onPressed: () {
+                                    _launchURL(
+                                        'mailto:omerfaruk.kus@outlook.com');
+                                  },
+                                  icon: const Icon(Icons.email),
+                                  label: const Text('Email'),
+                                  style: ElevatedButton.styleFrom(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 24.0, horizontal: 32.0),
+                                    textStyle: const TextStyle(fontSize: 18),
+                                  ),
                                 ),
-                              ),
-                              const SizedBox(height: 16),
-                              ElevatedButton.icon(
-                                onPressed: () {
-                                  _launchURL(
-                                      'https://www.linkedin.com/in/omrfrkkus');
-                                },
-                                icon: const FaIcon(FontAwesomeIcons.linkedin),
-                                label: const Text('LinkedIn'),
-                                style: ElevatedButton.styleFrom(
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 16.0, horizontal: 24.0),
-                                  backgroundColor: Colors.blue[700],
-                                  textStyle: const TextStyle(fontSize: 18),
+                                const SizedBox(width: 24),
+                                ElevatedButton.icon(
+                                  onPressed: () {
+                                    _launchURL(
+                                        'https://www.linkedin.com/in/omrfrkkus');
+                                  },
+                                  icon: const FaIcon(FontAwesomeIcons.linkedin),
+                                  label: const Text('LinkedIn'),
+                                  style: ElevatedButton.styleFrom(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 24.0, horizontal: 32.0),
+                                    textStyle: const TextStyle(fontSize: 18),
+                                  ),
                                 ),
-                              ),
-                              const SizedBox(height: 16),
-                              ElevatedButton.icon(
-                                onPressed: () {
-                                  _launchURL(
-                                      'https://www.instagram.com/omrfrkkus');
-                                },
-                                icon: const FaIcon(FontAwesomeIcons.instagram),
-                                label: const Text('Instagram'),
-                                style: ElevatedButton.styleFrom(
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 16.0, horizontal: 24.0),
-                                  backgroundColor: Colors.pinkAccent,
-                                  textStyle: const TextStyle(fontSize: 18),
+                                const SizedBox(width: 24),
+                                ElevatedButton.icon(
+                                  onPressed: () {
+                                    _launchURL(
+                                        'https://www.instagram.com/omrfrkkus');
+                                  },
+                                  icon:
+                                      const FaIcon(FontAwesomeIcons.instagram),
+                                  label: const Text('Instagram'),
+                                  style: ElevatedButton.styleFrom(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 24.0, horizontal: 32.0),
+                                    textStyle: const TextStyle(fontSize: 18),
+                                  ),
                                 ),
-                              ),
-                              const SizedBox(height: 16),
-                              ElevatedButton.icon(
-                                onPressed: () {
-                                  _launchURL('https://github.com/omrfrkkus');
-                                },
-                                icon: const FaIcon(FontAwesomeIcons.github),
-                                label: const Text('GitHub'),
-                                style: ElevatedButton.styleFrom(
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 16.0, horizontal: 24.0),
-                                  backgroundColor: Colors.black,
-                                  textStyle: const TextStyle(fontSize: 18),
-                                ),
-                              )
-                            ],
+                                const SizedBox(width: 24),
+                                ElevatedButton.icon(
+                                  onPressed: () {
+                                    _launchURL('https://github.com/omrfrkkus');
+                                  },
+                                  icon: const FaIcon(FontAwesomeIcons.github),
+                                  label: const Text('GitHub'),
+                                  style: ElevatedButton.styleFrom(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 24.0, horizontal: 32.0),
+                                    textStyle: const TextStyle(fontSize: 18),
+                                  ),
+                                )
+                              ],
+                            ),
                           )
                         : ListView(
                             shrinkWrap: true,
@@ -430,7 +438,6 @@ class _HomePageState extends State<HomePage> {
                                 style: ElevatedButton.styleFrom(
                                   padding: const EdgeInsets.symmetric(
                                       vertical: 16.0, horizontal: 24.0),
-                                  backgroundColor: Colors.blueAccent,
                                   textStyle: const TextStyle(fontSize: 18),
                                 ),
                               ),
@@ -445,7 +452,6 @@ class _HomePageState extends State<HomePage> {
                                 style: ElevatedButton.styleFrom(
                                   padding: const EdgeInsets.symmetric(
                                       vertical: 16.0, horizontal: 24.0),
-                                  backgroundColor: Colors.blue[700],
                                   textStyle: const TextStyle(fontSize: 18),
                                 ),
                               ),
@@ -460,7 +466,6 @@ class _HomePageState extends State<HomePage> {
                                 style: ElevatedButton.styleFrom(
                                   padding: const EdgeInsets.symmetric(
                                       vertical: 16.0, horizontal: 24.0),
-                                  backgroundColor: Colors.pinkAccent,
                                   textStyle: const TextStyle(fontSize: 18),
                                 ),
                               ),
@@ -474,7 +479,6 @@ class _HomePageState extends State<HomePage> {
                                 style: ElevatedButton.styleFrom(
                                   padding: const EdgeInsets.symmetric(
                                       vertical: 16.0, horizontal: 24.0),
-                                  backgroundColor: Colors.black,
                                   textStyle: const TextStyle(fontSize: 18),
                                 ),
                               )
