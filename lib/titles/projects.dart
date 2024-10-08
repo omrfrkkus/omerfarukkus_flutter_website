@@ -16,29 +16,27 @@ class Projects extends StatelessWidget {
   final List<Map<String, String>> projects = [
     {
       'title': 'Gorilla Workout Mobile App',
-      'description':
-          'Using Flutter, I developed and published a Street Workout app with multi-language support, professional training databases, and animations. The app has over thousand downloads on Google Play Store.',
+      'key': 'gorilla',
       'image': 'images/gorilla.png',
     },
     {
       'title': 'Adam the Humanoid',
-      'description':
-          'I developed a humanoid AI using Python and Google Vertex AI. The robot integrates hardware components such as servo motors and Arduino for movement control. Additionally, I performed fine-tuning on various AI models, including both cloud-based and offline models, to enhance its speech, object, and face recognition capabilities.',
+      'key': 'adam',
       'image': 'images/adam0.png',
     },
     {
       'title': 'Johnny the Humanoid',
-      'description':
-          'Developed a humanoid AI using Python and Google Vertex AI, integrating servo motors and Arduino for movement. Fine-tuned AI models for improved speech, object, and face recognition.',
+      'key': 'johnny',
       'image': 'images/johnny0.png',
     },
     {
       'title': 'Pencil 2D Platformer Game',
-      'description': 'A 2D multiplatform platformer game using Godot.',
+      'key': 'pencil',
       'image': 'images/pencil0.png',
     },
   ];
 
+  @override
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -88,8 +86,11 @@ class Projects extends StatelessWidget {
                           Padding(
                             padding:
                                 const EdgeInsets.symmetric(horizontal: 24.0),
-                            child: Text(project['description']!,
-                                textAlign: TextAlign.center),
+                            child: Text(
+                              AppLocalizations.of(context)!.project_description(
+                                  project['key']!), // Correctly call the method
+                              textAlign: TextAlign.center,
+                            ),
                           ),
                           const SizedBox(height: 15),
                           TextButton(
@@ -136,7 +137,13 @@ class Projects extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Text(
-                              project['description']!,
+                              AppLocalizations.of(context)!
+                                  .project_description(project[
+                                      'key']!) // Correctly call the method
+                                  .replaceFirst(
+                                      '{projects}',
+                                      project[
+                                          'key']!), // Call replaceFirst on the resulting string
                               textAlign: TextAlign.center,
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,

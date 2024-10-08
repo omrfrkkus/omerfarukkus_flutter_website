@@ -1,11 +1,21 @@
 {
-  "about": "O mnie",
+  "@@locale": "pl",
+  "about": "O projekcie",
   "projects": "Projekty",
   "sports": "Sport",
   "contact": "Kontakt",
   "hey": "CZEŚĆ, JESTEM",
   "resume": "CV",
-  "click_more": "Kliknij, aby dowiedzieć się więcej",
+  "click_more": "Kliknij, aby uzyskać więcej informacji",
   "close": "Zamknij",
-  "all_rights": "Wszelkie prawa zastrzeżone. Stworzone za pomocą Flutter."
+  "all_rights": "Wszystkie prawa zastrzeżone. Opracowane z Flutter.",
+  "project_description": "{projects, select, gorilla{Używając Fluttera, opracowałem i opublikowałem aplikację Street Workout z obsługą wielu języków, profesjonalnymi bazami danych treningowych i animacjami. Aplikacja ma ponad tysiąc pobrań w Google Play Store.} adam{Opracowałem humanoidalną AI przy użyciu Pythona i Google Vertex AI. Robot integruje komponenty sprzętowe, takie jak serwomotory i Arduino, do kontrolowania ruchu. Dodatkowo przeprowadziłem dostosowywanie różnych modeli AI, w tym zarówno modeli opartych na chmurze, jak i offline, aby poprawić jego zdolności w zakresie rozpoznawania mowy, obiektów i twarzy.} johnny{Opracowałem humanoidalną AI przy użyciu Pythona i Google Vertex AI, integrując serwomotory i Arduino do ruchu. Dostosowane modele AI dla lepszego rozpoznawania mowy, obiektów i twarzy.} pencil{Gra platformowa 2D na wiele platform, opracowana przy użyciu Godot.} other{Opis projektu niedostępny.}}",
+  "@project_description": {
+    "description": "Opisy projektów dla różnych projektów",
+    "placeholders": {
+      "projects": {
+        "type": "String"
+      }
+    }
+  }
 }

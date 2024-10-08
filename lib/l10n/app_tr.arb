@@ -1,11 +1,21 @@
 {
-  "about": "Hakkımda",
-  "projects": "Projelerim",
+  "@@locale": "tr",
+  "about": "Hakkında",
+  "projects": "Projeler",
   "sports": "Spor",
   "contact": "İletişim",
   "hey": "MERHABA, BEN",
   "resume": "Özgeçmiş",
-  "click_more": "Daha fazla için tıkla",
+  "click_more": "Daha fazla bilgi için tıklayın",
   "close": "Kapat",
-  "all_rights": "Tüm hakları saklıdır. Flutter ile geliştirilmiştir."
+  "all_rights": "Tüm hakları saklıdır. Flutter ile geliştirildi.",
+  "project_description": "{projects, select, gorilla{Flutter kullanarak, çok dilli destek, profesyonel eğitim veritabanları ve animasyonlarla Street Workout uygulamasını geliştirdim ve yayımladım. Uygulama, Google Play Store'da binlerce indirme aldı.} adam{Python ve Google Vertex AI kullanarak bir humanoid AI geliştirdim. Robot, hareket kontrolü için servo motorlar ve Arduino gibi donanım bileşenlerini entegre ediyor. Ayrıca, konuşma, nesne ve yüz tanıma yeteneklerini geliştirmek için hem bulut tabanlı hem de çevrimdışı çeşitli AI modellerini ince ayar yaptım.} johnny{Python ve Google Vertex AI kullanarak bir humanoid AI geliştirdim ve hareket için servo motorlar ile Arduino'yu entegre ettim. Ses, nesne ve yüz tanıma için iyileştirilmiş AI modelleri ayarlandı.} pencil{Godot kullanarak geliştirilen çok platformlu 2D platform oyunu.} other{Proje açıklaması mevcut değil.}}",
+  "@project_description": {
+    "description": "Farklı projeler için proje açıklamaları",
+    "placeholders": {
+      "projects": {
+        "type": "String"
+      }
+    }
+  }
 }

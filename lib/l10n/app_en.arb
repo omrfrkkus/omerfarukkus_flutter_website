@@ -1,4 +1,5 @@
 {
+  "@@locale": "en",
   "about": "About",
   "projects": "Projects",
   "sports": "Sports",
@@ -7,5 +8,14 @@
   "resume": "Resume",
   "click_more": "Click for more",
   "close": "Close",
-  "all_rights": "All rights reserved. Developed with Flutter."
+  "all_rights": "All rights reserved. Developed with Flutter.",
+  "project_description": "{projects, select, gorilla{Using Flutter, I developed and published a Street Workout app with multi-language support, professional training databases, and animations. The app has over a thousand downloads on Google Play Store.} adam{I developed a humanoid AI using Python and Google Vertex AI. The robot integrates hardware components such as servo motors and Arduino for movement control. Additionally, I performed fine-tuning on various AI models, including both cloud-based and offline models, to enhance its speech, object, and face recognition capabilities.} johnny{I developed a humanoid AI using Python and Google Vertex AI, integrating servo motors and Arduino for movement. Fine-tuned AI models for improved speech, object, and face recognition.} pencil{A 2D multiplatform platformer game developed using Godot.} other{Project description not available.}}",
+  "@project_description": {
+    "description": "Project descriptions for various projects",
+    "placeholders": {
+      "projects": {
+        "type": "String"
+      }
+    }
+  }
 }
