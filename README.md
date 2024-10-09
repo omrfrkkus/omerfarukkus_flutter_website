@@ -1,3 +1,3 @@
-# omerfarukkus_flutter_website
+# omerfarukkus.com.tr Flutter Source Code
 
-A new Flutter project.
+My personal website with flutter

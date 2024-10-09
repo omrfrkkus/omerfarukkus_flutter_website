@@ -196,9 +196,22 @@ class _HomePageState extends State<HomePage> {
             child: SizedBox(
               height: 80,
               child: Center(
-                child: Text(
-                  ' 2024 Ömer Faruk Kuş. ${AppLocalizations.of(context)!.all_rights}',
-                  textAlign: TextAlign.center,
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      ' 2024 Ömer Faruk Kuş. ${AppLocalizations.of(context)!.all_rights}',
+                      textAlign: TextAlign.center,
+                    ),
+                    TextButton(
+                        onPressed: () {
+                          _launchURL(
+                              'https://github.com/omrfrkkus/omerfarukkus_flutter_website');
+                        },
+                        child: const Text('Source Code'))
+                  ],
                 ),
               ),
             ),
