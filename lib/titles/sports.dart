@@ -34,6 +34,7 @@ class Sports extends StatelessWidget {
                 indent: 32,
                 endIndent: 32,
               ),
+        const SizedBox(height: 24),
         Card(
           clipBehavior: Clip.antiAliasWithSaveLayer,
           child: Column(
@@ -49,8 +50,11 @@ class Sports extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          SizedBox(
-                            width: 500, // Resmin maksimum genişliği
+                          ConstrainedBox(
+                            constraints: const BoxConstraints(
+                              maxWidth: 400,
+                              maxHeight: 400,
+                            ),
                             child: Card(
                               clipBehavior: Clip.antiAliasWithSaveLayer,
                               child: Image.asset(
@@ -60,8 +64,11 @@ class Sports extends StatelessWidget {
                             ),
                           ),
                           const SizedBox(width: 16),
-                          SizedBox(
-                            height: 500, // Resmin maksimum genişliği
+                          ConstrainedBox(
+                            constraints: const BoxConstraints(
+                              maxWidth: 400,
+                              maxHeight: 400,
+                            ), // Resmin maksimum genişliği
                             child: Card(
                               clipBehavior: Clip.antiAliasWithSaveLayer,
                               child: Image.asset(
@@ -100,10 +107,10 @@ class Sports extends StatelessWidget {
                       .toUpperCase(),
                   style: Theme.of(context).textTheme.titleMedium,
                   textAlign: TextAlign.center),
-              const SizedBox(height: 16),
             ],
           ),
         ),
+        const SizedBox(height: 32),
       ],
     );
   }

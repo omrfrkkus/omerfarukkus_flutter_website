@@ -37,7 +37,6 @@ class Projects extends StatelessWidget {
   ];
 
   @override
-  @override
   Widget build(BuildContext context) {
     return Column(
       children: [
@@ -74,39 +73,7 @@ class Projects extends StatelessWidget {
               child: Card(
                 clipBehavior: Clip.antiAliasWithSaveLayer,
                 child: InkWell(
-                  onTap: () => showDialog<String>(
-                    context: context,
-                    builder: (BuildContext context) => Dialog.fullscreen(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          _getProjectWidget(project['title']!),
-                          const SizedBox(height: 16),
-                          Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 24.0),
-                            child: Text(
-                              AppLocalizations.of(context)!.project_description(
-                                  project['key']!), // Correctly call the method
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
-                          const SizedBox(height: 15),
-                          TextButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 48),
-                              child: Text(AppLocalizations.of(context)!.close),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+                  onTap: () => _showProjectDialog(context, project),
                   child: Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: Column(
@@ -138,12 +105,7 @@ class Projects extends StatelessWidget {
                           children: [
                             Text(
                               AppLocalizations.of(context)!
-                                  .project_description(project[
-                                      'key']!) // Correctly call the method
-                                  .replaceFirst(
-                                      '{projects}',
-                                      project[
-                                          'key']!), // Call replaceFirst on the resulting string
+                                  .project_description(project['key']!),
                               textAlign: TextAlign.center,
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
@@ -169,29 +131,63 @@ class Projects extends StatelessWidget {
       ],
     );
   }
-}
 
-Widget _getProjectWidget(String title) {
-  switch (title) {
-    case 'Gorilla Workout Mobile App':
-      return const Gorilla(
-        height: 500,
-      );
-    case 'Adam the Humanoid':
-      return const Adam(
-        height: 500,
-      );
-    case 'Johnny the Humanoid':
-      return const Johnny(
-        height: 500,
-      );
-    case 'Pencil 2D Platformer Game':
-      return const Pencil(
-        height: 400,
-      );
-    default:
-      return const Gorilla(
-        height: 500,
-      ); // Varsayılan widget
+  void _showProjectDialog(BuildContext context, Map<String, String> project) {
+    showDialog<String>(
+      context: context,
+      builder: (BuildContext context) => Dialog.fullscreen(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            _getProjectWidget(project['title']!),
+            const SizedBox(height: 16),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24.0),
+              child: Text(
+                AppLocalizations.of(context)!.project_description(
+                    project['key']!), // Correctly call the method
+                textAlign: TextAlign.center,
+              ),
+            ),
+            const SizedBox(height: 15),
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 48),
+                child: Text(AppLocalizations.of(context)!.close),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _getProjectWidget(String title) {
+    switch (title) {
+      case 'Gorilla Workout Mobile App':
+        return const Gorilla(
+          height: 500,
+        );
+      case 'Adam the Humanoid':
+        return const Adam(
+          height: 500,
+        );
+      case 'Johnny the Humanoid':
+        return const Johnny(
+          height: 500,
+        );
+      case 'Pencil 2D Platformer Game':
+        return const Pencil(
+          height: 400,
+        );
+      default:
+        return const Gorilla(
+          height: 500,
+        ); // Varsayılan widget
+    }
   }
 }

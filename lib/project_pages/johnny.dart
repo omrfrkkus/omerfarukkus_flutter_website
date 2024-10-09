@@ -8,15 +8,16 @@ class Johnny extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: height,
-      child: ListView(
+      child: ListView.builder(
         scrollDirection: Axis.horizontal,
         shrinkWrap: true,
-        children: List.generate(2, (index) {
+        itemCount: 2,
+        itemBuilder: (_, index) {
           return Card(
             clipBehavior: Clip.antiAliasWithSaveLayer,
             child: Image.asset('images/johnny$index.png'),
           );
-        }),
+        },
       ),
     );
   }

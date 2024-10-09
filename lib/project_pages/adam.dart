@@ -8,15 +8,16 @@ class Adam extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: height,
-      child: ListView(
-        scrollDirection: Axis.horizontal,
+      child: ListView.builder(
         shrinkWrap: true,
-        children: List.generate(1, (index) {
+        scrollDirection: Axis.horizontal,
+        itemCount: 1,
+        itemBuilder: (_, index) {
           return Card(
             clipBehavior: Clip.antiAliasWithSaveLayer,
             child: Image.asset('images/adam$index.png'),
           );
-        }),
+        },
       ),
     );
   }

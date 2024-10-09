@@ -12,15 +12,16 @@ class Gorilla extends StatelessWidget {
       children: [
         SizedBox(
           height: height,
-          child: ListView(
+          child: ListView.builder(
             scrollDirection: Axis.horizontal,
             shrinkWrap: true,
-            children: List.generate(5, (index) {
+            itemCount: 5,
+            itemBuilder: (_, index) {
               return Card(
                 clipBehavior: Clip.antiAliasWithSaveLayer,
                 child: Image.asset('images/pixel$index.png'),
               );
-            }),
+            },
           ),
         ),
         const SizedBox(height: 10),
@@ -35,9 +36,8 @@ class Gorilla extends StatelessWidget {
 }
 
 void _launchURL(String url) async {
-  final uri = Uri.parse(url);
-  if (await canLaunchUrl(uri)) {
-    await launchUrl(uri, mode: LaunchMode.externalApplication);
+  if (await canLaunchUrl(Uri.parse(url))) {
+    await launchUrl(Uri.parse(url), mode: LaunchMode.externalApplication);
   } else {
     throw 'Could not launch $url';
   }
